@@ -20,7 +20,7 @@ import time
 '''
 
 
-IP = 'x.x.x.x'  # 服务器本地ip
+IP = '172.16.139.124'  # 服务器本地ip
 # IP = '127.0.0.1'  # 本地测试
 PORT = 12345  # 聊天室进程端口
 messages = queue.Queue()  # 消息队列，存放(地址，信息)，发送到客户端
@@ -104,7 +104,7 @@ class ChatServer(threading.Thread):  # 继承一个线程类
                     for i in range(len(users)):  # 循环发送到每个客户端
                         data = message[1]
                         users[i][1].send(data.encode())  # 发送
-                    a, b, c = data.split('   `   ')
+                    a = data.split('~')
                     print(a, '(' + time.ctime() + ')')
 
                 if isinstance(message[1], list):  # 发送在线用户列表

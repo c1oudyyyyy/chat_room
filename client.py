@@ -14,8 +14,8 @@ IP = ''  # 用户ip
 PORT = ''  # 用户端口
 user = ''  # 用户名
 
-local_test = ('127.0.0.1', x)  # 本地测试服务器的socket
-server_socket = ('x.x.x.x', x)  # 阿里云服务器的socket
+local_test = ('127.0.0.1', 12345)  # 本地测试服务器的socket
+server_socket = ('101.132.147.14', 12345)  # 阿里云服务器的socket
 
 listbox1 = ''  # 用于显示在线用户的列表框
 show = 1  # 用于判断是开还是关闭列表框
@@ -30,7 +30,7 @@ root0.title('welcome')
 root0.resizable(0, 0)  # 禁止窗口缩放
 
 IP0 = tkinter.StringVar()  # stringvar显示变量随时变更
-IP0.set('x.x.x.x:12345')
+IP0.set('101.132.147.14:12345')
 USER = tkinter.StringVar()
 USER.set('')
 
@@ -114,7 +114,7 @@ def send(*args):
         tkinter.messagebox.showerror('error', message='不能与自己聊天!')
         return
     '''
-    message = entryIuput.get() + '   `   ' + user + '   `   '+chat
+    message = entryIuput.get() +'~' + user + '~'+chat
     s.send(message.encode())
     INPUT.set('')
 
@@ -156,6 +156,13 @@ def receive():
                     listbox.insert(tkinter.END, messagel, 'tag4')
                     listbox.insert(tkinter.END, messager)
                     listbox.insert(tkinter.END, '\t' + time.ctime(), 'tag5')
+            elif userName == user or chatwith == user: # 私聊
+                if userName == user:
+                    listbox.tag_config('tag20', foreground='red')
+                    listbox.insert(tkinter.END, message, 'tag20')
+                else:
+                    listbox.tag_config('tag30', foreground='green')
+                    listbox.insert(tkinter.END, message,'tag30')
 
             listbox.see(tkinter.END)
 
